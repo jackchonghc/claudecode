@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USDT/USDC Exchange Rates - Argentina & Bolivia</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #fff;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 1.8rem;
+        }
+        .subtitle {
+            text-align: center;
+            color: #888;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+        }
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        @media (max-width: 900px) {
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .chart-container {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .chart-title {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .flag {
+            font-size: 1.5rem;
+        }
+        .chart-wrapper {
+            position: relative;
+            height: 300px;
+        }
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 15px;
+            font-size: 0.85rem;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+        }
+        .spread-info {
+            margin-top: 15px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            font-size: 0.8rem;
+            color: #aaa;
+        }
+        .spread-info table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .spread-info th, .spread-info td {
+            padding: 5px 8px;
+            text-align: left;
+        }
+        .spread-info th {
+            color: #666;
+            font-weight: normal;
+        }
+        .spread-info td {
+            color: #ccc;
+        }
+        .spread {
+            color: #ffd700;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Crypto Exchange Rates</h1>
+        <p class="subtitle">USDT/USDC Bid & Ask prices across exchanges</p>
+
+        <div class="charts-grid">
+            <div class="chart-container">
+                <div class="chart-title">
+                    <span class="flag">🇦🇷</span>
+                    <span>Argentina (ARS)</span>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="argentinaChart"></canvas>
+                </div>
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #4ade80;"></div>
+                        <span>Bid</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #f87171;"></div>
+                        <span>Ask</span>
+                    </div>
+                </div>
+                <div class="spread-info">
+                    <table>
+                        <tr>
+                            <th>Exchange</th>
+                            <th>Pair</th>
+                            <th>Bid</th>
+                            <th>Ask</th>
+                            <th class="spread">Spread</th>
+                        </tr>
+                        <tr>
+                            <td>Ardua</td>
+                            <td>USDT/ARS</td>
+                            <td>1,484</td>
+                            <td>1,496</td>
+                            <td class="spread">0.81%</td>
+                        </tr>
+                        <tr>
+                            <td>Canal</td>
+                            <td>USDT/ARS</td>
+                            <td>1,484</td>
+                            <td>1,490</td>
+                            <td class="spread">0.40%</td>
+                        </tr>
+                        <tr>
+                            <td>Belo</td>
+                            <td>USDT/ARS</td>
+                            <td>1,478</td>
+                            <td>1,488</td>
+                            <td class="spread">0.68%</td>
+                        </tr>
+                        <tr>
+                            <td>Ripio</td>
+                            <td>USDC/ARS</td>
+                            <td>1,478</td>
+                            <td>1,501</td>
+                            <td class="spread">1.56%</td>
+                        </tr>
+                        <tr>
+                            <td>Manteca</td>
+                            <td>USDC/ARS</td>
+                            <td>1,470</td>
+                            <td>1,500</td>
+                            <td class="spread">2.04%</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-title">
+                    <span class="flag">🇧🇴</span>
+                    <span>Bolivia (BOB)</span>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="boliviaChart"></canvas>
+                </div>
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #4ade80;"></div>
+                        <span>Bid</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #f87171;"></div>
+                        <span>Ask</span>
+                    </div>
+                </div>
+                <div class="spread-info">
+                    <table>
+                        <tr>
+                            <th>Exchange</th>
+                            <th>Pair</th>
+                            <th>Bid</th>
+                            <th>Ask</th>
+                            <th class="spread">Spread</th>
+                        </tr>
+                        <tr>
+                            <td>Vita</td>
+                            <td>USDT/BOB</td>
+                            <td>10.05</td>
+                            <td>10.12</td>
+                            <td class="spread">0.70%</td>
+                        </tr>
+                        <tr>
+                            <td>EFY</td>
+                            <td>USDC/BOB</td>
+                            <td>9.92</td>
+                            <td>10.19</td>
+                            <td class="spread">2.72%</td>
+                        </tr>
+                        <tr>
+                            <td>Rampa</td>
+                            <td>USDC/BOB</td>
+                            <td>9.60</td>
+                            <td>10.20</td>
+                            <td class="spread">6.25%</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const chartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                    padding: 12,
+                    titleFont: { size: 14 },
+                    bodyFont: { size: 13 },
+                    callbacks: {
+                        label: function(context) {
+                            return context.dataset.label + ': ' + context.raw.toLocaleString();
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.05)'
+                    },
+                    ticks: {
+                        color: '#888'
+                    }
+                },
+                y: {
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.05)'
+                    },
+                    ticks: {
+                        color: '#888'
+                    }
+                }
+            }
+        };
+
+        // Argentina Chart
+        new Chart(document.getElementById('argentinaChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Ardua\n(USDT)', 'Canal\n(USDT)', 'Belo\n(USDT)', 'Ripio\n(USDC)', 'Manteca\n(USDC)'],
+                datasets: [
+                    {
+                        label: 'Bid',
+                        data: [1484, 1484, 1478, 1478, 1470],
+                        backgroundColor: '#4ade80',
+                        borderRadius: 4
+                    },
+                    {
+                        label: 'Ask',
+                        data: [1496, 1490, 1488, 1501, 1500],
+                        backgroundColor: '#f87171',
+                        borderRadius: 4
+                    }
+                ]
+            },
+            options: {
+                ...chartOptions,
+                scales: {
+                    ...chartOptions.scales,
+                    y: {
+                        ...chartOptions.scales.y,
+                        min: 1450,
+                        max: 1520
+                    }
+                }
+            }
+        });
+
+        // Bolivia Chart
+        new Chart(document.getElementById('boliviaChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Vita\n(USDT)', 'EFY\n(USDC)', 'Rampa\n(USDC)'],
+                datasets: [
+                    {
+                        label: 'Bid',
+                        data: [10.05, 9.92, 9.60],
+                        backgroundColor: '#4ade80',
+                        borderRadius: 4
+                    },
+                    {
+                        label: 'Ask',
+                        data: [10.12, 10.19, 10.20],
+                        backgroundColor: '#f87171',
+                        borderRadius: 4
+                    }
+                ]
+            },
+            options: {
+                ...chartOptions,
+                scales: {
+                    ...chartOptions.scales,
+                    y: {
+                        ...chartOptions.scales.y,
+                        min: 9.4,
+                        max: 10.4
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
